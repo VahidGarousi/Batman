@@ -3,14 +3,16 @@
     package="ir.vbile.app.batman">
 
     <application
+        android:name="ir.vbile.app.batman.core.BatmanBaseApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Batman">
         <activity
-            android:name=".MainActivity"
+            android:name="ir.vbile.app.batman.platform.mobile.presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Batman.NoActionBar">

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Batman</string>
+    <string name="app_name_debug">Batman Dev</string>
+    <string name="app_name_release">Batman</string>
 </resources>

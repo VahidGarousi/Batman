@@ -1,4 +1,4 @@
-package ir.vbile.app.batman.ui.theme
+package ir.vbile.app.batman.core.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

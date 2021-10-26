@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+keystore.properties
+batman_debug.jks
+batman_release.jks
