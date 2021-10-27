@@ -68,6 +68,9 @@ fun MoviesScreen(
                     ),
                     onValueChanged = {
                         vm.onEvent(MoviesScreenEvent.EnteredQuery(it))
+                    },
+                    onSearchClick = {
+                        topMovies.refresh()
                     }
                 )
             }

@@ -21,7 +21,8 @@ import ir.vbile.app.batman.core.presentation.ui.theme.SpaceSmall
 fun StandardSearchView(
     modifier: Modifier = Modifier,
     text: String,
-    onValueChanged: (String) -> Unit
+    onValueChanged: (String) -> Unit,
+    onSearchClick: () -> Unit = {}
 ) {
     Box(
         modifier.fillMaxWidth()
@@ -34,7 +35,7 @@ fun StandardSearchView(
         )
         IconButton(
             onClick = {
-
+                onSearchClick()
             },
             modifier = Modifier
                 .padding(end = SpaceSmall)

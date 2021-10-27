@@ -22,11 +22,17 @@ class MoviesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _searchQuery = mutableStateOf("batman")
     val searchQuery: State<String> = _searchQuery
-    val movies = movieUserCase.searchMovies(searchQuery.value).cachedIn(viewModelScope)
+    val movies = movieUserCase
+        .searchMovies(searchQuery.value)
+        .cachedIn(viewModelScope)
+
     fun onEvent(event: MoviesScreenEvent) {
         when (event) {
             is MoviesScreenEvent.EnteredQuery -> {
                 _searchQuery.value = event.query
+            }
+            is MoviesScreenEvent.Search -> {
+
             }
         }
     }
