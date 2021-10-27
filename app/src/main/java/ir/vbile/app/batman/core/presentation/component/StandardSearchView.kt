@@ -19,18 +19,18 @@ import ir.vbile.app.batman.core.presentation.ui.theme.SpaceSmall
 
 @Composable
 fun StandardSearchView(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    text: String,
+    onValueChanged: (String) -> Unit
 ) {
     Box(
         modifier.fillMaxWidth()
     ) {
         StandardTextField(
             backgroundColor = Color.LightGray,
-            text = "",
+            text = text,
             hint = stringResource(id = R.string.search_hint),
-            onValueChanged = {
-
-            }
+            onValueChanged = onValueChanged
         )
         IconButton(
             onClick = {

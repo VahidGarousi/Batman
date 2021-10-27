@@ -13,22 +13,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import ir.vbile.app.batman.R
+import ir.vbile.app.batman.core.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.*
 
 @ExperimentalMaterialApi
 @Composable
 fun TopMovie(
     modifier: Modifier = Modifier,
-    title: String = "The Batman",
-    duration: String = "2 hr 20 minutes",
-    rate: String = "8.2/10",
-    categories: List<String> = arrayListOf("Horror", "Theater")
+    categories: List<String> = arrayListOf("Horror", "Theater"),
+    movie : Movie
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth()
+            .width(240.dp)
             .height(120.dp)
             .padding(
                 end = SpaceSmall,
@@ -42,7 +43,7 @@ fun TopMovie(
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.movie_image),
+                painter = rememberImagePainter(data = movie.poster),
                 contentDescription = stringResource(id = R.string.movie_image)
             )
             Spacer(
@@ -56,15 +57,12 @@ fun TopMovie(
                     .padding(SpaceMedium)
             ) {
                 Text(
-                    text = title,
+                    text = movie.title.take(15),
                     style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colors.onBackground
+                    color = MaterialTheme.colors.onBackground,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Row {
-                    Text(
-                        text = duration,
-                        style = MaterialTheme.typography.caption
-                    )
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
@@ -72,7 +70,7 @@ fun TopMovie(
                         modifier = Modifier.size(IconSizeSmall)
                     )
                     Text(
-                        text = rate.toString(),
+                        text = movie.imdbID,
                         style = MaterialTheme.typography.caption
                     )
                 }

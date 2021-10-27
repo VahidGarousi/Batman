@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
@@ -14,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ir.vbile.app.batman.core.presentation.AppNavigation
 import ir.vbile.app.batman.core.presentation.ui.theme.BatmanTheme
 
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {

@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.presentation.component.StandardSearchView
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceLarge
@@ -22,8 +24,10 @@ import ir.vbile.app.batman.feature_movie.presentation.list.components.topMovies
 @Composable
 fun MoviesScreen(
     scaffoldState: ScaffoldState,
-    onNavigate: (String) -> Unit = {}
+    onNavigate: (String) -> Unit = {},
+    vm: MoviesViewModel = hiltViewModel()
 ) {
+    val topMovies = vm.movies.collectAsLazyPagingItems()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -56,15 +60,19 @@ fun MoviesScreen(
                 shape = RoundedCornerShape(topStart = SpaceLarge)
             ) {
                 StandardSearchView(
+                    text = vm.searchQuery.value,
                     modifier = Modifier.padding(
                         top = SpaceMedium,
                         start = SpaceMedium,
                         end = SpaceMedium
-                    )
+                    ),
+                    onValueChanged = {
+                        vm.onEvent(MoviesScreenEvent.EnteredQuery(it))
+                    }
                 )
             }
         }
-        topMovies()
+        topMovies(topMovies)
         latestMovies()
     }
 }
