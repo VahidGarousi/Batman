@@ -73,6 +73,6 @@ fun MoviesScreen(
             }
         }
         topMovies(topMovies)
-        latestMovies()
+        latestMovies(topMovies)
     }
 }

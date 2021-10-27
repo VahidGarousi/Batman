@@ -10,12 +10,14 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import coil.request.ImageResult
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.*
@@ -25,7 +27,7 @@ import ir.vbile.app.batman.core.presentation.ui.theme.*
 fun TopMovie(
     modifier: Modifier = Modifier,
     categories: List<String> = arrayListOf("Horror", "Theater"),
-    movie : Movie
+    movie: Movie
 ) {
     Card(
         modifier = modifier
@@ -44,7 +46,9 @@ fun TopMovie(
         ) {
             Image(
                 painter = rememberImagePainter(data = movie.poster),
-                contentDescription = stringResource(id = R.string.movie_image)
+                contentDescription = stringResource(id = R.string.movie_image),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
             )
             Spacer(
                 modifier = Modifier

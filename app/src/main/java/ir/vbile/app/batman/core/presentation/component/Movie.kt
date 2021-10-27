@@ -18,14 +18,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import ir.vbile.app.batman.R
+import ir.vbile.app.batman.core.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.*
 
 @Composable
 fun Movie(
     index: Int = 0,
-    title: String = "Batman",
-    rate: String = "8.2/10"
+    movie: Movie
 ) {
     Column(
         modifier = Modifier
@@ -40,16 +41,19 @@ fun Movie(
             }
     ) {
         Image(
-            painter = painterResource(id = R.drawable.poster),
+            painter = rememberImagePainter(
+                data = movie.poster
+            ),
             contentDescription = null,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .height(240.dp)
                 .clip(RoundedCornerShape(SpaceLarge)),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.height(SpaceSmall))
         Text(
-            text = title,
+            text = movie.title,
             style = MaterialTheme.typography.h2.copy(fontSize = 18.sp),
             color = MaterialTheme.colors.background
         )
@@ -62,7 +66,7 @@ fun Movie(
                 modifier = Modifier.size(IconSizeSmall)
             )
             Text(
-                text = rate,
+                text = movie.imdbID,
                 style = MaterialTheme.typography.body2,
                 color = Color(0XFFAFAEB6)
             )

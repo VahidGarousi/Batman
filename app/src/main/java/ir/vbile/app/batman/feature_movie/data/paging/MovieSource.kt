@@ -23,7 +23,8 @@ class MovieSource constructor(
             val nextPage = params.key ?: currentPage
             val response = api.searchMovie(query = query, page = nextPage)
             database.withTransaction {
-                moviesDao.clearAll()
+                if (response.movies.isNotEmpty())
+                    moviesDao.clearAll()
                 // Insert new movies into database, which invalidates the
                 // current PagingData, allowing Paging to present the updates
                 // in the DB.
