@@ -3,6 +3,7 @@ package ir.vbile.app.batman.platform.mobile.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,6 +15,7 @@ import ir.vbile.app.batman.core.presentation.AppNavigation
 import ir.vbile.app.batman.core.presentation.ui.theme.BatmanTheme
 
 @AndroidEntryPoint
+@ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

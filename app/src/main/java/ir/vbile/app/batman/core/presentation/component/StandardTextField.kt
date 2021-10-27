@@ -108,7 +108,9 @@ fun StandardTextField(
             modifier = modifier
                 .fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = backgroundColor
+                backgroundColor = backgroundColor,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(SpaceMedium)
         )

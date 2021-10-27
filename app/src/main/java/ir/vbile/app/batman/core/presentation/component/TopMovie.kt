@@ -1,34 +1,29 @@
-package ir.vbile.app.batman.feature_movie.presentation.list
+package ir.vbile.app.batman.core.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.constrain
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.presentation.ui.theme.*
 
+@ExperimentalMaterialApi
 @Composable
 fun TopMovie(
     modifier: Modifier = Modifier,
     title: String = "The Batman",
     duration: String = "2 hr 20 minutes",
-    rate: Float = 8.2f,
+    rate: String = "8.2/10",
     categories: List<String> = arrayListOf("Horror", "Theater")
 ) {
     Card(
@@ -39,7 +34,9 @@ fun TopMovie(
                 end = SpaceSmall,
                 bottom = SpaceSmall
             ),
-        shape = RoundedCornerShape(SpaceSmall)
+        shape = RoundedCornerShape(SpaceSmall),
+        onClick = {
+        }
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
