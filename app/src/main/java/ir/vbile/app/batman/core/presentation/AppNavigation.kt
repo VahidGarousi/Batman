@@ -15,7 +15,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen.route
+        startDestination = Screen.MoviesScreen.route
     ) {
         addAuthenticationGraph(navController, scaffoldState)
         addMoviesGraph(navController, scaffoldState)

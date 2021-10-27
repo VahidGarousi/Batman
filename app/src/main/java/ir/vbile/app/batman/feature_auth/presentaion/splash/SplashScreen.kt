@@ -16,12 +16,13 @@ fun SplashScreen(
     scaffoldState: ScaffoldState,
     onNavigate: (String) -> Unit = {}
 ) {
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "SplashScreen",
-            color = MaterialTheme.colors.onBackground,
+            text = "Register",
+            color = Color.White,
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)
