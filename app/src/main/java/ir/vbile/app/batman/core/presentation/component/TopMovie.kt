@@ -11,21 +11,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import coil.request.ImageResult
 import ir.vbile.app.batman.R
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.*
 
 @ExperimentalMaterialApi
 @Composable
 fun TopMovie(
     modifier: Modifier = Modifier,
+    onMovieClick: (String) -> Unit = {},
     categories: List<String> = arrayListOf("Horror", "Theater"),
     movie: Movie
 ) {
@@ -38,8 +37,7 @@ fun TopMovie(
                 bottom = SpaceSmall
             ),
         shape = RoundedCornerShape(SpaceSmall),
-        onClick = {
-        }
+        onClick = { onMovieClick(movie.imdbID) }
     ) {
         Box(
             modifier = Modifier.fillMaxSize()

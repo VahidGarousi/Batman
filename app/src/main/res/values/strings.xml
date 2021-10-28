@@ -12,4 +12,12 @@
     <string name="search_button">search_button</string>
     <string name="movie_image">movie_image</string>
     <string name="error_unknown">Unknown error</string>
+    <string name="error_could_not_reach">error_couldnt_reach</string>
+    <string name="oops_something_went_wrong">Opps, something went wrong</string>
+    <string name="imdb">IMDB</string>
+    <string name="director">Director</string>
+    <string name="country">Country</string>
+    <string name="language">Language</string>
+    <string name="plot">Plot</string>
+    <string name="actors">Actors</string>
 </resources>

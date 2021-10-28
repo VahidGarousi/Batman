@@ -4,14 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.vbile.app.batman.core.domain.models.Movie
-import ir.vbile.app.batman.core.domain.use_case.MovieUseCase
+import ir.vbile.app.batman.feature_movie.domain.use_cases.MovieUseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 import javax.inject.Named
 

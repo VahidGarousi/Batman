@@ -1,7 +1,6 @@
 package ir.vbile.app.batman.core.presentation.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,18 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import ir.vbile.app.batman.R
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.*
 
 @Composable
 fun Movie(
     index: Int = 0,
-    movie: Movie
+    movie: Movie,
+    onMovieClick : (String) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -36,9 +34,7 @@ fun Movie(
                 start = if (index % 2 == 0) 0.dp else SpaceSmall,
                 bottom = SpaceMedium
             )
-            .clickable {
-
-            }
+            .clickable { onMovieClick(movie.imdbID) }
     ) {
         Image(
             painter = rememberImagePainter(

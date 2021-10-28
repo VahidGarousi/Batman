@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.feature_movie.data.paging.MovieDao
 
 @Database(entities = [Movie::class], version = 1)

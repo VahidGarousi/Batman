@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.presentation.component.StandardSearchView
+import ir.vbile.app.batman.core.presentation.ui.Screen
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceLarge
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceMedium
 import ir.vbile.app.batman.feature_movie.presentation.list.components.MoviesScreenToolbar
@@ -66,16 +67,17 @@ fun MoviesScreen(
                         start = SpaceMedium,
                         end = SpaceMedium
                     ),
-                    onValueChanged = {
-                        vm.onEvent(MoviesScreenEvent.EnteredQuery(it))
-                    },
-                    onSearchClick = {
-                        topMovies.refresh()
-                    }
+                    onValueChanged = { vm.onEvent(MoviesScreenEvent.EnteredQuery(it)) },
+                    onSearchClick = { topMovies.refresh() }
                 )
             }
         }
-        topMovies(topMovies)
-        latestMovies(topMovies)
+        topMovies(topMovies, onMovieClick = { movieId ->
+            onNavigate(Screen.MovieDetailScreen.route + "?movieId=$movieId")
+        })
+        latestMovies(topMovies, onMovieClick = { movieId ->
+            onNavigate(Screen.MovieDetailScreen.route + "?movieId=$movieId")
+        }
+        )
     }
 }

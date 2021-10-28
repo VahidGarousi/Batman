@@ -16,14 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.component.TopMovie
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceMedium
 
 
 @ExperimentalMaterialApi
 fun LazyListScope.topMovies(
-    movies: LazyPagingItems<Movie>
+    movies: LazyPagingItems<Movie>,
+    onMovieClick: (String) -> Unit = {}
 ) {
     item {
         Box(
@@ -59,8 +60,8 @@ fun LazyListScope.topMovies(
                 .padding(bottom = SpaceMedium, start = SpaceMedium, end = SpaceMedium)
         ) {
             items(movies) { movie ->
-                if (movie != null){
-                    TopMovie(movie = movie)
+                if (movie != null) {
+                    TopMovie(movie = movie, onMovieClick = onMovieClick)
                 }
             }
         }

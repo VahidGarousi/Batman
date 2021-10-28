@@ -1,4 +1,4 @@
-package ir.vbile.app.batman.core.domain.models
+package ir.vbile.app.batman.feature_movie.domain.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

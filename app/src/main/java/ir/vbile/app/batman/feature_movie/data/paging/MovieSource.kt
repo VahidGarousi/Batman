@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.room.withTransaction
 import ir.vbile.app.batman.core.data.dto.local.BatmanDB
-import ir.vbile.app.batman.core.data.dto.remote.MovieApi
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.data.remote.MovieApi
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import retrofit2.HttpException
 import java.io.IOException
 

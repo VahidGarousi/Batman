@@ -5,7 +5,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import ir.vbile.app.batman.core.presentation.ui.Screen
 import ir.vbile.app.batman.feature_movie.presentation.detail.MovieDetailScreen
 import ir.vbile.app.batman.feature_movie.presentation.list.MoviesScreen
@@ -26,11 +28,20 @@ fun NavGraphBuilder.addMoviesGraph(
         )
     }
     composable(
-        route = Screen.MovieDetailScreen.route
+        route = Screen.MovieDetailScreen.route + "?movieId={movieId}",
+        arguments = listOf(
+            navArgument(
+                name = "movieId"
+            ) {
+                type = NavType.StringType
+                nullable = false
+            }
+        )
     ) {
         MovieDetailScreen(
             scaffoldState = scaffoldState,
-            onNavigate = navController::navigate
+            onNavigate = navController::navigate,
+            onNavigateUp = navController::navigateUp
         )
     }
 }

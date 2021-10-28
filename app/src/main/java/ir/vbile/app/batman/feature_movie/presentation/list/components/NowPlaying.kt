@@ -11,16 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.component.Movie
-import ir.vbile.app.batman.core.presentation.component.gridItems
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceMedium
 
 
 fun LazyListScope.latestMovies(
     movies: LazyPagingItems<Movie>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMovieClick : (String) -> Unit = {}
 ) {
     item {
         Box(
@@ -60,7 +59,8 @@ fun LazyListScope.latestMovies(
                     ) {
                         Movie(
                             index = rowIndex,
-                            movie = movies[itemIndex] ?: return@Row
+                            movie = movies[itemIndex] ?: return@Row,
+                            onMovieClick = onMovieClick
                         )
                     }
                 } else {

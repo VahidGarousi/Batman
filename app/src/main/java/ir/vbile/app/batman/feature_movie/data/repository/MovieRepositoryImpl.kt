@@ -4,13 +4,19 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.data.dto.local.BatmanDB
-import ir.vbile.app.batman.core.data.dto.remote.MovieApi
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.data.remote.MovieApi
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.MovieDetails
 import ir.vbile.app.batman.core.util.CoreConstants
+import ir.vbile.app.batman.core.util.Resource
+import ir.vbile.app.batman.core.util.UiText
 import ir.vbile.app.batman.feature_movie.data.paging.MovieSource
 import ir.vbile.app.batman.feature_movie.domain.MovieRepository
 import kotlinx.coroutines.flow.Flow
+import retrofit2.HttpException
+import java.io.IOException
 
 @ExperimentalPagingApi
 class MovieRepositoryImpl constructor(
@@ -23,5 +29,16 @@ class MovieRepositoryImpl constructor(
         ) {
             MovieSource(api = api, query = query, db)
         }.flow
+    }
+
+    override suspend fun getMovieDetails(movieId: String): Resource<MovieDetails> {
+        return try {
+            val response = api.getMovieDetails(movieId)
+            Resource.Success(response.toMovieDetails())
+        } catch (e: IOException) {
+            Resource.Error(UiText.StringResource(R.string.error_could_not_reach))
+        } catch (e: HttpException) {
+            Resource.Error(UiText.StringResource(R.string.oops_something_went_wrong))
+        }
     }
 }

@@ -1,4 +1,4 @@
-package ir.vbile.app.batman.core.data.dto.responses
+package ir.vbile.app.batman.feature_movie.data.remote.responses
 
 import com.google.gson.annotations.SerializedName
 

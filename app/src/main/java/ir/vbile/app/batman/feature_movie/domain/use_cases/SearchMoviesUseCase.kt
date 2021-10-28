@@ -1,7 +1,7 @@
-package ir.vbile.app.batman.core.domain.use_case
+package ir.vbile.app.batman.feature_movie.domain.use_cases
 
 import androidx.paging.PagingData
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.feature_movie.domain.MovieRepository
 import kotlinx.coroutines.flow.Flow
 

@@ -1,6 +1,6 @@
-package ir.vbile.app.batman.core.data.dto.responses
+package ir.vbile.app.batman.feature_movie.data.remote.responses
 
-import ir.vbile.app.batman.core.domain.models.Movie
+import ir.vbile.app.batman.feature_movie.domain.models.Movie
 
 data class MovieDto(
     val Poster: String,
