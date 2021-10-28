@@ -34,10 +34,9 @@ class MovieDetailViewModel @Inject constructor(
     val toolbarState: State<ProfileToolbarState> = _toolbarState
 
     init {
-//        savedStateHandle.get<String>("movieId")?.let {
-//            loadMovieDetails(it)
-//        }
-        loadMovieDetails("tt2975590")
+        savedStateHandle.get<String>("movieId")?.let {
+            loadMovieDetails(it)
+        }
     }
 
     fun setExpandedRatio(ratio: Float) {

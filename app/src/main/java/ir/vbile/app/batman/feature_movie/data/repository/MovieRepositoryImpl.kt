@@ -1,9 +1,6 @@
 package ir.vbile.app.batman.feature_movie.data.repository
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.*
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.data.dto.local.BatmanDB
 import ir.vbile.app.batman.feature_movie.data.remote.MovieApi
@@ -12,7 +9,7 @@ import ir.vbile.app.batman.feature_movie.domain.models.MovieDetails
 import ir.vbile.app.batman.core.util.CoreConstants
 import ir.vbile.app.batman.core.util.Resource
 import ir.vbile.app.batman.core.util.UiText
-import ir.vbile.app.batman.feature_movie.data.paging.MovieSource
+import ir.vbile.app.batman.feature_movie.data.paging.MovieRemoteMediator
 import ir.vbile.app.batman.feature_movie.domain.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -25,9 +22,12 @@ class MovieRepositoryImpl constructor(
 ) : MovieRepository {
     override fun searchMovies(query: String): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(pageSize = CoreConstants.DEFAULT_PAGE_SIZE)
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = MovieRemoteMediator(
+                api, query, db
+            )
         ) {
-            MovieSource(api = api, query = query, db)
+            db.movieDao().pagingSource(query)
         }.flow
     }
 

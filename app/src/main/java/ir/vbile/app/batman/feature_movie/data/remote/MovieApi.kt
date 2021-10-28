@@ -11,7 +11,7 @@ interface MovieApi {
     suspend fun searchMovie(
         @Query("s") query: String,
         @Query("page") page: Int?,
-    ): SearchResponse
+    ): SearchResponse?
 
     @GET("/")
     suspend fun getMovieDetails(

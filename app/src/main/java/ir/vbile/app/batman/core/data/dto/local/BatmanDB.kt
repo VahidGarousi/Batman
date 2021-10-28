@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ir.vbile.app.batman.feature_movie.data.local.RemoteKeyDao
+import ir.vbile.app.batman.feature_movie.data.local.RemoteKey
 import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.feature_movie.data.paging.MovieDao
 
-@Database(entities = [Movie::class], version = 1)
+@Database(entities = [Movie::class, RemoteKey::class], version = 1)
 abstract class BatmanDB : RoomDatabase() {
     abstract fun movieDao(): MovieDao
+    abstract fun remoteKeyDao(): RemoteKeyDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
