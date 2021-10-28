@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -75,7 +76,8 @@ fun MovieDetailScreen(
                     maximumValue = 0f
                 )
             )
-            val newRatio = (vm.toolbarState.value.toolbarOffsetY + maxOffset.toPx()) / maxOffset.toPx()
+            val newRatio =
+                (vm.toolbarState.value.toolbarOffsetY + maxOffset.toPx()) / maxOffset.toPx()
             vm.setExpandedRatio(newRatio)
             return Offset.Zero
         }
@@ -181,6 +183,17 @@ fun MovieDetailScreen(
             onNavigateUp = onNavigateUp,
             modifier = Modifier.align(Alignment.TopCenter)
         )
+    }
+    if (state.isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }
 
