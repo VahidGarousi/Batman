@@ -1,15 +1,18 @@
 package ir.vbile.app.batman.feature_movie.presentation.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import ir.vbile.app.batman.R
 import ir.vbile.app.batman.core.presentation.component.StandardSearchView
@@ -31,7 +34,8 @@ fun MoviesScreen(
     val topMovies = vm.movies.collectAsLazyPagingItems()
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        state = vm.lazyListState.value
     ) {
         item {
             MoviesScreenToolbar(onNavigate)
@@ -72,12 +76,30 @@ fun MoviesScreen(
                 )
             }
         }
-        topMovies(topMovies, onMovieClick = { movieId ->
-            onNavigate(Screen.MovieDetailScreen.route + "?movieId=$movieId")
-        })
+        topMovies(
+            topMovies,
+            onMovieClick = { movieId ->
+                onNavigate(Screen.MovieDetailScreen.route + "?movieId=$movieId")
+            },
+            vm.topMoviesLazyListState.value
+        )
         latestMovies(topMovies, onMovieClick = { movieId ->
             onNavigate(Screen.MovieDetailScreen.route + "?movieId=$movieId")
         }
         )
+    }
+    if (
+        topMovies.loadState.refresh is LoadState.Loading ||
+        topMovies.loadState.prepend is LoadState.Loading
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }

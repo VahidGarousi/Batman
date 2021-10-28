@@ -1,5 +1,7 @@
 package ir.vbile.app.batman.feature_movie.presentation.list
 
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -18,6 +20,13 @@ class MoviesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _searchQuery = mutableStateOf("batman")
     val searchQuery: State<String> = _searchQuery
+
+    private val _topMoviesLazyListState = mutableStateOf(LazyListState())
+    val topMoviesLazyListState: State<LazyListState> = _topMoviesLazyListState
+
+    private val _lazyListState = mutableStateOf(LazyListState())
+    val lazyListState : State<LazyListState> = _lazyListState
+
     val movies = movieUserCase
         .searchMovies(searchQuery.value)
         .cachedIn(viewModelScope)
