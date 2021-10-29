@@ -9,14 +9,13 @@ data class MovieDto(
     val Year: String,
     val imdbID: String
 ) {
-    fun toMovie(pageNumber : Int): Movie {
+    fun toMovie(): Movie {
         return Movie(
             imdbID = imdbID,
             poster = Poster,
             title = Title,
             type = Type,
-            year = Year,
-            pageNumber = pageNumber
+            year = Year
         )
     }
 }

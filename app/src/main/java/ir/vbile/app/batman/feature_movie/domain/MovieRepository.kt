@@ -7,6 +7,6 @@ import ir.vbile.app.batman.core.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    fun searchMovies(query: String): Flow<PagingData<Movie>>
+    suspend fun searchMovies(query: String): Resource<List<Movie>>
     suspend fun getMovieDetails(movieId : String): Resource<MovieDetails>
 }

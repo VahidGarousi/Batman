@@ -20,4 +20,8 @@
     <string name="language">Language</string>
     <string name="plot">Plot</string>
     <string name="actors">Actors</string>
+    <string name="internet_not_available">Oops, No internet connection!</string>
+    <string name="internet_not_available_hint">Your connection appears to be offline.Try to refresh the page.</string>
+    <string name="comming_soon">Comming Soon</string>
+    <string name="refresh">Refresh</string>
 </resources>

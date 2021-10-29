@@ -3,6 +3,7 @@ package ir.vbile.app.batman.feature_movie.data.remote
 import ir.vbile.app.batman.BuildConfig
 import ir.vbile.app.batman.feature_movie.data.remote.responses.MovieDetailsDto
 import ir.vbile.app.batman.feature_movie.data.remote.responses.SearchResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 

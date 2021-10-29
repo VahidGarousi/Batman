@@ -1,7 +1,13 @@
 package ir.vbile.app.batman.feature_movie.domain.models
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import ir.vbile.app.batman.core.util.RatingTypeConverter
 import java.util.concurrent.TimeUnit
 
+@Entity(tableName = "movie_details")
 data class MovieDetails(
     val Actors: String,
     val Awards: String,
@@ -16,7 +22,7 @@ data class MovieDetails(
     val Poster: String,
     val Production: String,
     val Rated: String,
-    val Ratings: List<Rating>,
+    val Ratings: List<Rating> = emptyList(),
     val Released: String,
     val Response: String,
     val Runtime: String,
@@ -25,6 +31,7 @@ data class MovieDetails(
     val Website: String,
     val Writer: String,
     val Year: String,
+    @PrimaryKey(autoGenerate = false)
     val imdbID: String,
     val imdbRating: String,
     val imdbVotes: String

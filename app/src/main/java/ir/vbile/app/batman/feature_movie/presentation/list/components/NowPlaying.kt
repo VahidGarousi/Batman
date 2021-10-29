@@ -10,16 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.paging.compose.LazyPagingItems
 import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.core.presentation.component.Movie
 import ir.vbile.app.batman.core.presentation.ui.theme.SpaceMedium
 
 
 fun LazyListScope.latestMovies(
-    movies: LazyPagingItems<Movie>,
+    movies: List<Movie> = emptyList(),
     modifier: Modifier = Modifier,
-    onMovieClick : (String) -> Unit = {}
+    onMovieClick: (String) -> Unit = {}
 ) {
     item {
         Box(
@@ -41,7 +40,7 @@ fun LazyListScope.latestMovies(
         }
     }
     val columns = 2
-    val rows = if (movies.itemCount == 0) 0 else 1 + (movies.itemCount) - 1 / columns
+    val rows = if (movies.isEmpty()) 0 else 1 + (movies.size) - 1 / columns
     items(rows) { rowIndex ->
         Row(
             horizontalArrangement = Arrangement.Start,
@@ -52,14 +51,14 @@ fun LazyListScope.latestMovies(
         ) {
             for (columnIndex in 0 until columns) {
                 val itemIndex = rowIndex * columns + columnIndex
-                if (itemIndex < movies.itemCount) {
+                if (itemIndex < movies.size) {
                     Box(
                         modifier = Modifier.weight(1f, fill = true),
                         propagateMinConstraints = true
                     ) {
                         Movie(
                             index = rowIndex,
-                            movie = movies[itemIndex] ?: return@Row,
+                            movie = movies[itemIndex],
                             onMovieClick = onMovieClick
                         )
                     }

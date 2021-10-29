@@ -22,3 +22,8 @@ val SizeExtraSmall = 4.dp
 val SizeSmall = 8.dp
 val SizeMedium = 16.dp
 val SizeLarge = 24.dp
+
+
+val StandardButtonPadding = 16.dp
+val ButtonHorizontalPadding = 16.dp
+val ButtonVerticalPadding = 16.dp

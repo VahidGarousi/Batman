@@ -1,6 +1,5 @@
 package ir.vbile.app.batman.feature_movie.domain.models
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -12,9 +11,5 @@ data class Movie(
     val title: String,
     val type: String,
     val year: String,
-    @ColumnInfo(collate = ColumnInfo.NOCASE)
-    val pageNumber: Int,
     val updatedAt: Long = System.currentTimeMillis()
-) {
-    var indexInResponse: Int = -1
-}
+)
