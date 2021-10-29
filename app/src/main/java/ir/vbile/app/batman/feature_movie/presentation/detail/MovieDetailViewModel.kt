@@ -57,14 +57,27 @@ class MovieDetailViewModel @Inject constructor(
                 is Resource.Success -> {
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        movieDetails = result.data
+                        movieDetails = result.data,
+                        moviesIsEmptyAndInternetConnectIsNotAvailable = result.data == null
                     )
                 }
                 is Resource.Error -> {
-                    _state.value = _state.value.copy(
-                        isLoading = false
-                    )
                     _eventFlow.emit(UiEvent.ShowSnackBar(result.uiText ?: UiText.unknownError()))
+                    _state.value = _state.value.copy(
+                        isLoading = false,
+                        movieDetails = result.data,
+                        moviesIsEmptyAndInternetConnectIsNotAvailable = result.data == null
+                    )
+                }
+            }
+        }
+    }
+
+    fun onEvent(event: MovieDetailScreenEvent) {
+        when (event) {
+            is MovieDetailScreenEvent.Retry -> {
+                savedStateHandle.get<String>("movieId")?.let {
+                    loadMovieDetails(it)
                 }
             }
         }

@@ -80,6 +80,11 @@ class MoviesViewModel @Inject constructor(
                     loadMovies()
                 }
             }
+            is MoviesScreenEvent.Retry -> {
+                viewModelScope.launch {
+                    loadMovies()
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package ir.vbile.app.batman.feature_movie.presentation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
@@ -13,6 +14,7 @@ import ir.vbile.app.batman.feature_movie.presentation.detail.MovieDetailScreen
 import ir.vbile.app.batman.feature_movie.presentation.list.MoviesScreen
 
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 fun NavGraphBuilder.addMoviesGraph(

@@ -1,5 +1,6 @@
 package ir.vbile.app.batman.core.presentation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
@@ -10,6 +11,7 @@ import ir.vbile.app.batman.core.presentation.ui.Screen
 import ir.vbile.app.batman.feature_auth.addAuthenticationGraph
 import ir.vbile.app.batman.feature_movie.presentation.addMoviesGraph
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable

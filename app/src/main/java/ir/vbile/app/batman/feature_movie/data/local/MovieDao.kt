@@ -1,4 +1,4 @@
-package ir.vbile.app.batman.feature_movie.data.paging.list
+package ir.vbile.app.batman.feature_movie.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert

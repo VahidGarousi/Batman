@@ -11,6 +11,6 @@ interface MovieDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(movieDetails: MovieDetails)
 
-    @Query("SELECT * FROM movie_details WHERE imdbID =:imdbID")
-    suspend fun getMovieDetail(imdbID: String): MovieDetails
+    @Query("SELECT * FROM movie_details WHERE imdbID =:movieId")
+    suspend fun getMovie(movieId: String): MovieDetails
 }

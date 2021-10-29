@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ir.vbile.app.batman.core.util.RatingTypeConverter
 import ir.vbile.app.batman.feature_movie.data.local.MovieDetailDao
-import ir.vbile.app.batman.feature_movie.data.paging.list.MovieDao
+import ir.vbile.app.batman.feature_movie.data.local.MovieDao
 import ir.vbile.app.batman.feature_movie.domain.models.Movie
 import ir.vbile.app.batman.feature_movie.domain.models.MovieDetails
 

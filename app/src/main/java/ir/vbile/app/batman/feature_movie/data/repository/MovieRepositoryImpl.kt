@@ -19,16 +19,21 @@ class MovieRepositoryImpl constructor(
     private val api: MovieApi,
     private val db: BatmanDB
 ) : MovieRepository {
+    private val moviesDao = db.movieDao()
+    private val movieDetailsDao = db.movieDetail()
     override suspend fun searchMovies(query: String): Resource<List<Movie>> {
-        val localMovies = db.withTransaction {
-            db.movieDao().getMovies(query)
+        var localMovies = db.withTransaction {
+            moviesDao.getMovies(query)
         }
         return try {
             val movies = api.searchMovie(query, 1)?.movies?.map {
                 it.toMovie()
             } ?: listOf()
             db.withTransaction {
-                db.movieDao().insertAll(movies)
+                moviesDao.insertAll(movies)
+                localMovies = db.withTransaction {
+                    moviesDao.getMovies(query)
+                }
             }
             Resource.Success(movies)
         } catch (e: IOException) {
@@ -47,15 +52,24 @@ class MovieRepositoryImpl constructor(
     }
 
     override suspend fun getMovieDetails(movieId: String): Resource<MovieDetails> {
+        var localMovieDetails = movieDetailsDao.getMovie(movieId)
         return try {
-            val response = api.getMovieDetails(movieId)
-            db.movieDetail().insertOrReplace(response.toMovieDetails())
-            val movie = db.movieDetail().getMovieDetail(movieId)
-            Resource.Success(movie)
+            val movieDetails = api.getMovieDetails(movieId).toMovieDetails()
+            db.withTransaction {
+                movieDetailsDao.insertOrReplace(movieDetails)
+                localMovieDetails = movieDetailsDao.getMovie(movieId)
+            }
+            Resource.Success(localMovieDetails)
         } catch (e: IOException) {
-            Resource.Error(UiText.StringResource(R.string.error_could_not_reach))
+            Resource.Error(
+                data = localMovieDetails,
+                uiText = UiText.StringResource(R.string.error_could_not_reach)
+            )
         } catch (e: HttpException) {
-            Resource.Error(UiText.StringResource(R.string.oops_something_went_wrong))
+            Resource.Error(
+                data = localMovieDetails,
+                uiText = UiText.StringResource(R.string.oops_something_went_wrong)
+            )
         }
     }
 }

@@ -3,6 +3,7 @@ package ir.vbile.app.batman.platform.mobile.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ir.vbile.app.batman.core.presentation.AppNavigation
 import ir.vbile.app.batman.core.presentation.ui.theme.BatmanTheme
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalFoundationApi

@@ -1,5 +1,6 @@
 package ir.vbile.app.batman.feature_movie.presentation.detail
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,9 +11,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,13 +36,22 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import ir.vbile.app.batman.R
+import ir.vbile.app.batman.core.presentation.component.ConnectionLost
 import ir.vbile.app.batman.core.presentation.ui.theme.*
+import ir.vbile.app.batman.core.presentation.util.ConnectionState
 import ir.vbile.app.batman.core.presentation.util.asString
 import ir.vbile.app.batman.core.util.UiEvent
 import ir.vbile.app.batman.core.util.toPx
+import ir.vbile.app.batman.core.utils.compose.ConnectivityStatus
+import ir.vbile.app.batman.core.utils.compose.connectivityState
+import ir.vbile.app.batman.feature_movie.presentation.list.MoviesScreenEvent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@ExperimentalAnimationApi
+@ExperimentalCoroutinesApi
 @Composable
 fun MovieDetailScreen(
     scaffoldState: ScaffoldState,
@@ -51,6 +59,11 @@ fun MovieDetailScreen(
     onNavigate: (String) -> Unit = {},
     vm: MovieDetailViewModel = hiltViewModel()
 ) {
+    // This will cause re-composition on every network state change
+    val connection by connectivityState()
+
+    val scope = rememberCoroutineScope()
+
     val lazyListState = rememberLazyListState()
     val toolbarState = vm.toolbarState.value
     val toolbarHeightCollapsed = 72.dp
@@ -97,92 +110,94 @@ fun MovieDetailScreen(
             }
         }
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(nestedScrollConnection)
-    ) {
+    Column {
         Box(
             modifier = Modifier
-                .height(
-                    (bannerHeight * toolbarState.expandedRatio).coerceIn(
-                        minimumValue = toolbarHeightCollapsed,
-                        maximumValue = bannerHeight
-                    )
-                )
+                .fillMaxSize()
+                .nestedScroll(nestedScrollConnection)
         ) {
-            BoxWithConstraints(
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.TopCenter)
-            ) {
-                Image(
-                    painter = rememberImagePainter(
-                        data = state.movieDetails?.Poster,
-                        builder = {
-                            crossfade(true)
-                        }
-                    ),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .aspectRatio(1f)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .aspectRatio(1f)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    Color.Black
-                                ),
-                                startY = constraints.maxHeight.toFloat()
-                            )
+                    .height(
+                        (bannerHeight * toolbarState.expandedRatio).coerceIn(
+                            minimumValue = toolbarHeightCollapsed,
+                            maximumValue = bannerHeight
                         )
-                ) {
-
-                }
-            }
-        }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            state = lazyListState
-        ) {
-            item {
-                Spacer(
+                    )
+            ) {
+                BoxWithConstraints(
                     modifier = Modifier
-                        .height(toolbarHeightExpanded)
-                )
-            }
-            item {
-                Column(
-                    modifier = Modifier.fillMaxSize()
+                        .fillMaxSize()
+                        .align(Alignment.TopCenter)
                 ) {
-                    MovieDescription(state)
-                    MovieRates(state)
-                    Column(
+                    Image(
+                        painter = rememberImagePainter(
+                            data = state.movieDetails?.Poster,
+                            builder = {
+                                crossfade(true)
+                            }
+                        ),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillWidth,
                         modifier = Modifier
-                            .offset(y = (-26).dp)
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(topStart = SpaceExtraLarge))
-                            .background(Color(0XFF1B222A))
+                            .aspectRatio(1f)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .aspectRatio(1f)
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Transparent,
+                                        Color.Black
+                                    ),
+                                    startY = constraints.maxHeight.toFloat()
+                                )
+                            )
                     ) {
-                        MovieSummary(state)
-                        Spacer(modifier = Modifier.height(SpaceMedium))
-                        MoviePlot(state.movieDetails?.Plot.orEmpty())
-                        Actors(state.movieDetails?.Actors.orEmpty())
-                        Writers(state.movieDetails?.Writer.orEmpty())
+
                     }
                 }
             }
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                state = lazyListState
+            ) {
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .height(toolbarHeightExpanded)
+                    )
+                }
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        MovieDescription(state)
+                        MovieRates(state)
+                        Column(
+                            modifier = Modifier
+                                .offset(y = (-26).dp)
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(topStart = SpaceExtraLarge))
+                                .background(Color(0XFF1B222A))
+                        ) {
+                            MovieSummary(state)
+                            Spacer(modifier = Modifier.height(SpaceMedium))
+                            MoviePlot(state.movieDetails?.Plot.orEmpty())
+                            Actors(state.movieDetails?.Actors.orEmpty())
+                            Writers(state.movieDetails?.Writer.orEmpty())
+                        }
+                    }
+                }
+            }
+            MoviesScreenToolbar(
+                onNavigateUp = onNavigateUp,
+                modifier = Modifier.align(Alignment.TopCenter)
+            )
         }
-        MoviesScreenToolbar(
-            onNavigateUp = onNavigateUp,
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
     }
     if (state.isLoading) {
         Box(
@@ -194,6 +209,20 @@ fun MovieDetailScreen(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
+    }
+    if (state.moviesIsEmptyAndInternetConnectIsNotAvailable) {
+        ConnectionLost(onRetry = {
+            val isConnected = connection === ConnectionState.Available
+            if (isConnected) {
+                vm.onEvent(MovieDetailScreenEvent.Retry)
+            } else {
+                scope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        context.getString(R.string.internet_not_available_hint)
+                    )
+                }
+            }
+        })
     }
 }
 

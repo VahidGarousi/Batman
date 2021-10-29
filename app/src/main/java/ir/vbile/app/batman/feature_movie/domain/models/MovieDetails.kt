@@ -1,10 +1,7 @@
 package ir.vbile.app.batman.feature_movie.domain.models
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import ir.vbile.app.batman.core.util.RatingTypeConverter
 import java.util.concurrent.TimeUnit
 
 @Entity(tableName = "movie_details")
